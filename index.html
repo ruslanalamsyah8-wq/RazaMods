@@ -352,6 +352,33 @@
                 <!-- Playlist items will be added here dynamically -->
             </div>
         </div>
+        <!-- QRIS Payment -->
+                         <div class="bg-terminal-card border border-terminal-border rounded-lg p-4 hover:border-terminal-cyan transition-all cursor-pointer group hover:shadow-lg hover:shadow-terminal-cyan/20 mt-4">
+                              <div class="flex items-start justify-between mb-3">
+                                  <div class="flex items-center space-x-2">
+                                      <svg class="w-5 h-5 text-terminal-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                     </svg>
+                                 <span class="font-mono text-sm">@payment/qris</span>
+                             </div>
+                         <span class="text-xs px-2 py-1 bg-terminal-green/20 text-terminal-green rounded font-mono">QRIS</span>
+                       </div>
+
+                  <p class="text-xs text-terminal-comment mb-3">
+               Universal QR Payment (supports all Indonesian e-wallets & banks).
+             </p>
+
+                 <div class="bg-terminal-darker rounded-lg p-4 mb-3 border border-terminal-border flex flex-col items-center">
+                     <span class="text-xs text-terminal-comment font-mono mb-2">Scan QRIS</span>
+                <img src="https://files.catbox.moe/z61u61.jpg" 
+                   alt="QRIS Payment"
+             class="w-48 rounded-lg border border-terminal-border"/>
+             </div>
+
+                        <div class="bg-terminal-darker rounded px-3 py-2 font-mono text-xs text-terminal-green">
+                     $ npm install qris
+                 </div>
+                         </div>
 
         <!-- Profile Card -->
         <div class="glass-card rounded-xl p-6 sm:p-8 max-w-2xl mx-auto">
