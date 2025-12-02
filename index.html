@@ -1,0 +1,998 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>TirizzModzz- Full Stack Developer Portfolio</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Full Stack Developer specializing in React.js, JavaScript, HTML, and UI/UX. View my live terminal portfolio."/>
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="TirizzModzz Payment"/>
+    <meta property="og:description" content="Full Stack Developer specializing in React.js, JavaScript, HTML, and UI/UX. View my live terminal portfolio."/>
+    <meta property="og:url" content="https://"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:image" content="https://files.catbox.moe/ifq9dt.jpg"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="TirizzModzz Web Payment"/>
+    <meta name="twitter:description" content="Full Stack Developer specializing in React.js, JavaScript, HTML, and UI/UX. View my live terminal portfolio."/>
+    <meta name="twitter:image" content="https://files.catbox.moe/ifq9dt.jpg"/>
+    <meta name="twitter:url" content="https://"/>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'mono': ['Fira Code', 'monospace'],
+                        'sans': ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        terminal: {
+                            bg: '#0d1117',
+                            darker: '#010409',
+                            card: '#161b22',
+                            border: '#30363d',
+                            text: '#c9d1d9',
+                            comment: '#8b949e',
+                            keyword: '#ff7b72',
+                            string: '#a5d6ff',
+                            function: '#d2a8ff',
+                            variable: '#ffa657',
+                            number: '#79c0ff',
+                            green: '#7ee787',
+                            cyan: '#79c0ff',
+                            yellow: '#ffa657',
+                            purple: '#d2a8ff'
+                        }
+                    },
+                    animation: {
+                        'typing': 'typing 3.5s steps(40, end)',
+                        'blink': 'blink 0.7s step-end infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'slideIn': 'slideIn 0.3s ease-out',
+                        'fadeIn': 'fadeIn 0.5s ease-in forwards',
+                        'slideUp': 'slideUp 0.4s ease-out'
+                    },
+                    keyframes: {
+                        typing: {
+                            'from': { width: '0' },
+                            'to': { width: '100%' }
+                        },
+                        blink: {
+                            'from, to': { opacity: '1' },
+                            '50%': { opacity: '0' }
+                        },
+                        glow: {
+                            'from': { 'box-shadow': '0 0 5px #79c0ff, 0 0 10px #79c0ff' },
+                            'to': { 'box-shadow': '0 0 10px #79c0ff, 0 0 20px #79c0ff, 0 0 30px #79c0ff' }
+                        },
+                        slideIn: {
+                            'from': { transform: 'translateX(-10px)', opacity: '0' },
+                            'to': { transform: 'translateX(0)', opacity: '1' }
+                        },
+                        fadeIn: {
+                            'from': { opacity: '0' },
+                            'to': { opacity: '1' }
+                        },
+                        slideUp: {
+                            'from': { transform: 'translateY(10px)', opacity: '0' },
+                            'to': { transform: 'translateY(0)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+        }
+        
+        .typing-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background-color: #7ee787;
+            margin-left: 2px;
+            animation: blink 0.7s infinite;
+            vertical-align: text-bottom;
+        }
+        
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+        
+        .code-line {
+            opacity: 0;
+            animation: fadeIn 0.3s ease-in forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .tab-active {
+            background-color: #0d1117;
+            border-bottom: 2px solid #ffa657;
+        }
+        
+        .tab-inactive {
+            opacity: 0.6;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .tab-inactive:hover {
+            opacity: 1;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .terminal-window {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .glass-card {
+            background: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+        }
+        
+        .online-indicator {
+            position: relative;
+        }
+        
+        .online-indicator::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            background: #7ee787;
+            border-radius: 50%;
+            border: 3px solid #0d1117;
+            animation: pulse-slow 2s infinite;
+        }
+        
+        .syntax-keyword { color: #ff7b72; }
+        .syntax-string { color: #a5d6ff; }
+        .syntax-function { color: #d2a8ff; }
+        .syntax-variable { color: #ffa657; }
+        .syntax-number { color: #79c0ff; }
+        .syntax-comment { color: #8b949e; }
+        .syntax-green { color: #7ee787; }
+        .syntax-yellow { color: #ffa657; }
+        
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #010409;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #484f58;
+        }
+    </style>
+</head>
+<body class="bg-terminal-bg text-terminal-text min-h-screen">
+    
+    <!-- Header -->
+    <header class="bg-terminal-darker border-b border-terminal-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex items-center justify-center space-x-2 text-terminal-comment">
+                <svg class="w-5 h-5 text-terminal-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span class="text-sm font-mono">Developer Terminal</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        
+        <!-- Terminal Window -->
+        <div class="terminal-window bg-terminal-darker rounded-xl overflow-hidden mb-8">
+            
+            <!-- Terminal Header -->
+            <div class="bg-terminal-card px-4 py-3 flex items-center justify-between border-b border-terminal-border">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                </div>
+                <div class="flex items-center space-x-2 text-sm text-terminal-comment font-mono">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <span>profile.config.js — DevPayment</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-terminal-comment" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                    </svg>
+                    <svg class="w-4 h-4 text-terminal-comment" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Terminal Tabs -->
+            <div class="bg-terminal-card border-b border-terminal-border flex items-center space-x-1 px-2 overflow-x-auto">
+                <div class="tab-button tab-active flex items-center space-x-2 px-4 py-2" data-tab="profile">
+                    <span class="text-xs font-mono text-terminal-yellow font-semibold">JS</span>
+                    <span class="text-sm font-mono">profile.config.js</span>
+                    <button class="ml-2 hover:bg-terminal-border rounded p-0.5">
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="tab-button tab-inactive flex items-center space-x-2 px-4 py-2" data-tab="payment">
+                    <span class="text-xs font-mono text-terminal-green font-semibold">JS</span>
+                    <span class="text-sm font-mono">payment.module.js</span>
+                </div>
+                <div class="tab-button tab-inactive flex items-center space-x-2 px-4 py-2" data-tab="notes">
+                    <span class="text-xs font-mono text-terminal-comment font-semibold">TXT</span>
+                    <span class="text-sm font-mono text-terminal-comment">notes.txt</span>
+                </div>
+            </div>
+
+            <!-- Terminal Content -->
+            <div class="p-6 font-mono text-sm overflow-x-auto min-h-[400px]">
+                
+                <!-- Breadcrumb -->
+                <div id="breadcrumb" class="text-terminal-comment mb-4 text-xs">
+                    <span>src</span>
+                    <span class="mx-2">›</span>
+                    <span>modules</span>
+                    <span class="mx-2">›</span>
+                    <span class="text-terminal-text">profile.config.js</span>
+                </div>
+
+                <!-- Code Content -->
+                <div id="codeContainer" class="space-y-1">
+                    <!-- Lines will be dynamically added -->
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Music Player -->
+        <div class="glass-card rounded-xl p-6 mb-8 max-w-2xl mx-auto">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-5 h-5 text-terminal-purple" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"></path>
+                    </svg>
+                    <h3 class="font-mono text-terminal-purple font-semibold">MUSIC PLAYLIST</h3>
+                </div>
+                <span class="text-xs text-terminal-comment font-mono" id="trackCount">0/0</span>
+            </div>
+
+            <!-- Current Track Display -->
+            <div class="bg-terminal-darker rounded-lg p-4 mb-4 border border-terminal-border">
+                <div class="flex items-center space-x-4">
+                    <div class="w-16 h-16 bg-gradient-to-br from-terminal-purple to-terminal-cyan rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-8 h-8 text-terminal-darker" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="text-terminal-text font-semibold truncate" id="currentTrackTitle">Select a track</div>
+                        <div class="text-terminal-comment text-sm truncate" id="currentTrackArtist">No track playing</div>
+                    </div>
+                </div>
+
+                <!-- Audio Element (Hidden) -->
+                <audio id="audioPlayer" class="hidden"></audio>
+
+                <!-- Progress Bar -->
+                <div class="mt-4 mb-3">
+                    <div class="flex justify-between text-xs text-terminal-comment mb-1 font-mono">
+                        <span id="currentTime">0:00</span>
+                        <span id="duration">0:00</span>
+                    </div>
+                    <div class="h-1 bg-terminal-card rounded-full cursor-pointer" id="progressBar">
+                        <div class="h-full bg-gradient-to-r from-terminal-purple to-terminal-cyan rounded-full transition-all" id="progressFill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="flex items-center justify-center space-x-4">
+                    <button id="prevBtn" class="p-2 hover:bg-terminal-card rounded-lg transition-colors text-terminal-comment hover:text-terminal-cyan">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M8.445 14.832A1 1 0 0010 14v-2.798l5.445 3.63A1 1 0 0017 14V6a1 1 0 00-1.555-.832L10 8.798V6a1 1 0 00-1.555-.832l-6 4a1 1 0 000 1.664l6 4z"></path>
+                        </svg>
+                    </button>
+                    <button id="playPauseBtn" class="p-3 bg-gradient-to-r from-terminal-purple to-terminal-cyan rounded-full hover:shadow-lg hover:shadow-terminal-cyan/50 transition-all">
+                        <svg id="playIcon" class="w-6 h-6 text-terminal-darker" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"></path>
+                        </svg>
+                        <svg id="pauseIcon" class="w-6 h-6 text-terminal-darker hidden" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M5 4a2 2 0 012-2h2a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V4zm8 0a2 2 0 012-2h2a2 2 0 012 2v12a2 2 0 01-2 2h-2a2 2 0 01-2-2V4z"></path>
+                        </svg>
+                    </button>
+                    <button id="nextBtn" class="p-2 hover:bg-terminal-card rounded-lg transition-colors text-terminal-comment hover:text-terminal-cyan">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M4.555 5.168A1 1 0 003 6v8a1 1 0 001.555.832L10 11.202V14a1 1 0 001.555.832l6-4a1 1 0 000-1.664l-6-4A1 1 0 0010 6v2.798l-5.445-3.63z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Playlist -->
+            <div class="space-y-2 max-h-64 overflow-y-auto" id="playlist">
+                <!-- Playlist items will be added here dynamically -->
+            </div>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="glass-card rounded-xl p-6 sm:p-8 max-w-2xl mx-auto">
+            <div class="flex items-center space-x-2 text-terminal-comment text-xs mb-6">
+                <span class="w-2 h-2 rounded-full bg-terminal-cyan"></span>
+                <span class="w-2 h-2 rounded-full bg-terminal-purple"></span>
+                <span class="ml-auto font-mono">PROFIL TIRIZZMODZZ</span>
+            </div>
+
+            <!-- Avatar -->
+            <div class="flex flex-col items-center mb-8">
+                <div class="relative online-indicator mb-4">
+                    <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-terminal-cyan to-terminal-purple p-1 animate-glow">
+                        <div class="w-full h-full rounded-full bg-terminal-card flex items-center justify-center overflow-hidden">
+                            <img src="https://files.catbox.moe/ifq9dt.jpg" alt="Developer Avatar" class="w-full h-full object-cover" loading="lazy"/>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-2xl sm:text-3xl font-bold mb-2 tracking-wide">TIRIZZMODZZ</h2>
+                <p class="text-terminal-comment flex items-center space-x-2 mb-4">
+                    <span class="text-terminal-green">➤</span>
+                    <span>Website Payment</span>
+                </p>
+
+                <!-- Bio Section -->
+                <div class="w-full bg-terminal-bg rounded-lg p-4 border border-terminal-border mb-6">
+                    <div class="text-terminal-yellow text-xs font-semibold mb-2 font-mono">BIO</div>
+                    <p class="text-terminal-green italic text-sm leading-relaxed">
+                        &#34;I am the developer of this website, which I created for the purpose of easy and practical payments.&#34;
+                    </p>
+                </div>
+
+                <!-- Import Section -->
+                <div class="w-full mb-6">
+                    <div class="font-mono text-xs mb-4">
+                        <span class="syntax-keyword">import</span>
+                        <span class="text-terminal-text"> { </span>
+                        <span class="syntax-function">PaymentModule</span>
+                        <span class="text-terminal-text"> } </span>
+                        <span class="syntax-keyword">from</span>
+                        <span class="syntax-string"> &#34;@app/core&#34;</span>
+                        <span class="text-terminal-text">;</span>
+                    </div>
+                    <div class="text-terminal-comment text-xs font-mono mb-3">
+                        // Select a payment provider to inject:
+                    </div>
+                </div>
+
+                <!-- Payment Options -->
+                <div class="w-full">
+                    <div class="bg-terminal-card border border-terminal-border rounded-lg p-4 hover:border-terminal-cyan transition-all cursor-pointer group hover:shadow-lg hover:shadow-terminal-cyan/20">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-terminal-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                                </svg>
+                                <span class="font-mono text-sm">@wallet/dana</span>
+                            </div>
+                            <span class="text-xs px-2 py-1 bg-terminal-cyan/20 text-terminal-cyan rounded font-mono">DANA</span>
+                        </div>
+                        <p class="text-xs text-terminal-comment mb-3">
+                            Seamless digital wallet integration for instant transfers.
+                        </p>
+                        
+                        <!-- DANA Account Info -->
+                        <div class="bg-terminal-darker rounded-lg p-4 mb-3 border border-terminal-border">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs text-terminal-comment font-mono">Nomor DANA</span>
+                                <button onclick="copyToClipboard(&#39;089630668094&#39;)" class="text-xs text-terminal-cyan hover:text-terminal-cyan/80 font-mono flex items-center space-x-1 transition-colors">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <span>Copy</span>
+                                </button>
+                            </div>
+                            <div class="text-terminal-cyan font-mono text-lg font-semibold mb-1">089630668094</div>
+                            <div class="text-terminal-green text-xs font-mono">a.n t***zz s**a b**</div>
+                        </div>
+                        
+                        <div class="bg-terminal-darker rounded px-3 py-2 font-mono text-xs text-terminal-green">
+                            $ npm install dana
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Info -->
+                <div class="w-full mt-8 pt-6 border-t border-terminal-border">
+                    <div class="flex items-center justify-between text-xs font-mono text-terminal-comment">
+                        <div class="flex items-center space-x-4">
+                            <span class="flex items-center space-x-1">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>main</span>
+                            </span>
+                            <span class="flex items-center space-x-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span id="statusTime">0 0</span>
+                            </span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <span>UTF-8</span>
+                            <span>JavaScript</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-terminal-comment text-sm pb-8">
+            <p class="font-mono">XetxaFolt using JavaScript &amp; TailwindCSS</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // File contents for different tabs
+        const fileContents = {
+            profile: {
+                breadcrumb: 'src › modules › profile.config.js',
+                lines: [
+                    '// Initializing developer profile configuration...',
+                    '',
+                    'const Developer = {',
+                    '  name: "TirizzModzz",',
+                    '  role: "Full Stack Developer",',
+                    '  is_online: true,',
+                    '  status: "Available for work",',
+                    '  stack: [',
+                    '    "Python",',
+                    '    "JavaScript",',
+                    '    "HTML",',
+                    '    "CSS/TailwindCSS",',
+                    '    "C+/C#"',
+                    '  ],',
+                    '  experience: {',
+                    '    years: 3,',
+                    '    projects: 50+,',
+                    '    clients_satisfied: true',
+                    '  }',
+                    '};',
+                    '',
+                    'export default Developer;',
+                    '',
+                    '// Profile loaded successfully ✓'
+                ]
+            },
+            payment: {
+                breadcrumb: 'src › core › payment.module.js',
+                lines: [
+                    '// Payment integration module',
+                    '',
+                    'import { WalletProvider } from "@providers/wallet";',
+                    'import { QRISScanner } from "@providers/qris";',
+                    '',
+                    'class PaymentModule {',
+                    '  constructor() {',
+                    '    this.providers = {',
+                    '      dana: new WalletProvider("DANA"),',
+                    '      qris: new QRISScanner(),',
+                    '    };',
+                    '    this.initialized = false;',
+                    '  }',
+                    '',
+                    '  async init() {',
+                    '    console.log("Initializing payment providers...");',
+                    '    await this.providers.dana.connect();',
+                    '    await this.providers.qris.setup();',
+                    '    this.initialized = true;',
+                    '    return { status: "success" };',
+                    '  }',
+                    '',
+                    '  async processPayment(amount, method) {',
+                    '    if (!this.initialized) {',
+                    '      throw new Error("Payment module not initialized");',
+                    '    }',
+                    '    return await this.providers[method].pay(amount);',
+                    '  }',
+                    '}',
+                    '',
+                    'export default PaymentModule;'
+                ]
+            },
+            notes: {
+                breadcrumb: 'docs › notes.txt',
+                lines: [
+                    'DEVELOPER NOTES',
+                    '================',
+                    '',
+                    'Project: Developer Portfolio & Payment Integration',
+                    'Status: In Development',
+                    'Last Updated: ' + new Date().toLocaleDateString('id-ID'),
+                    '',
+                    'TODO:',
+                    '- [✓] Setup basic portfolio structure',
+                    '- [✓] Implement terminal UI design',
+                    '- [✓] Add live typing effect',
+                    '- [✓] Payment module integration (DANA, QRIS)',
+                    '- [ ] Add contact form',
+                    '- [ ] Implement dark/light theme toggle',
+                    '- [ ] Add project showcase section',
+                    '',
+                    'TECH STACK:',
+                    '- HTML5 + TailwindCSS',
+                    '- Vanilla JavaScript',
+                    '- Custom terminal animations',
+                    '- Responsive design (mobile-first)',
+                    '',
+                    'NOTES:',
+                    '- Using Fira Code font for better code readability',
+                    '- Terminal theme inspired by GitHub Dark',
+                    '- All animations optimized for 60fps',
+                    '- Accessibility features included (ARIA labels)',
+                    '',
+                    'For collaboration or inquiries:',
+                    'Email: developer@example.com',
+                    'GitHub: github.com/maulana',
+                    '',
+                    '--- End of Notes ---'
+                ]
+            }
+        };
+
+        let currentTyping = null;
+        let currentTab = 'profile';
+
+        // Syntax highlighting function
+        function highlightSyntax(line) {
+            // JavaScript keywords
+            line = line.replace(/\b(const|let|var|function|class|async|await|return|import|export|from|new|if|else|throw|default)\b/g, 
+                '<span class="syntax-keyword">$1</span>');
+            
+            // Strings
+            line = line.replace(/(["'])([^"']*?)\1/g, 
+                '<span class="syntax-string">$1$2$1</span>');
+            
+            // Functions and classes
+            line = line.replace(/\b([A-Z][a-zA-Z0-9]*)/g, 
+                '<span class="syntax-function">$1</span>');
+            
+            // Numbers
+            line = line.replace(/\b(\d+)\b/g, 
+                '<span class="syntax-number">$1</span>');
+            
+            // Comments
+            if (line.trim().startsWith('//')) {
+                line = '<span class="syntax-comment">' + line + '</span>';
+            }
+            
+            // Boolean values
+            line = line.replace(/\b(true|false|null|undefined)\b/g, 
+                '<span class="syntax-keyword">$1</span>');
+            
+            return line;
+        }
+
+        // Type text character by character with realistic speed variations
+        function typeText(element, text, speed = 30) {
+            return new Promise((resolve) => {
+                let i = 0;
+                const cursor = document.createElement('span');
+                cursor.className = 'typing-cursor';
+                element.appendChild(cursor);
+
+                function type() {
+                    if (i < text.length) {
+                        const char = text.charAt(i);
+                        const textNode = document.createTextNode(char);
+                        element.insertBefore(textNode, cursor);
+                        i++;
+                        
+                        // Vary speed for more realistic typing
+                        let delay = speed;
+                        if (char === ' ') delay = speed * 0.5; // Space faster
+                        else if (char === '\n') delay = speed * 2; // Line break slower
+                        else if ('.,;:!?'.includes(char)) delay = speed * 1.5; // Punctuation slower
+                        else delay = speed + Math.random() * 20 - 10; // Random variation
+                        
+                        currentTyping = setTimeout(type, delay);
+                    } else {
+                        cursor.remove();
+                        resolve();
+                    }
+                }
+                type();
+            });
+        }
+
+        // Display code with character-by-character typing animation
+        async function displayCode(tabName) {
+            if (currentTyping) {
+                clearTimeout(currentTyping);
+            }
+
+            const container = document.getElementById('codeContainer');
+            const breadcrumb = document.getElementById('breadcrumb');
+            const file = fileContents[tabName];
+            
+            container.innerHTML = '';
+            breadcrumb.innerHTML = file.breadcrumb.replace(/›/g, '<span class="mx-2">›</span>');
+
+            for (let i = 0; i < file.lines.length; i++) {
+                const lineDiv = document.createElement('div');
+                lineDiv.className = 'font-mono text-sm flex';
+                
+                const line = file.lines[i];
+                
+                // Line number
+                const lineNumber = document.createElement('span');
+                lineNumber.className = 'text-terminal-comment mr-4 select-none inline-block w-6 text-right flex-shrink-0';
+                lineNumber.textContent = (i + 1).toString().padStart(2, ' ');
+                lineDiv.appendChild(lineNumber);
+                
+                // Code content
+                const codeSpan = document.createElement('span');
+                codeSpan.className = 'flex-1';
+                lineDiv.appendChild(codeSpan);
+                container.appendChild(lineDiv);
+                
+                if (line.trim() === '') {
+                    codeSpan.innerHTML = '&nbsp;';
+                } else {
+                    // Type each character with highlighting
+                    let displayText = '';
+                    for (let j = 0; j < line.length; j++) {
+                        displayText += line[j];
+                        
+                        // Apply syntax highlighting to current text
+                        let highlighted;
+                        if (tabName === 'notes') {
+                            highlighted = displayText;
+                            if (line.startsWith('DEVELOPER NOTES') || line.startsWith('TODO:') || 
+                                line.startsWith('TECH STACK:') || line.startsWith('NOTES:')) {
+                                highlighted = '<span class="syntax-keyword font-bold">' + displayText + '</span>';
+                            } else if (line.includes('[✓]')) {
+                                highlighted = displayText.replace('[✓]', '<span class="syntax-green">[✓]</span>');
+                            } else if (line.includes('[ ]')) {
+                                highlighted = displayText.replace('[ ]', '<span class="syntax-comment">[ ]</span>');
+                            }
+                        } else {
+                            highlighted = highlightSyntax(displayText);
+                        }
+                        
+                        codeSpan.innerHTML = highlighted + '<span class="typing-cursor"></span>';
+                        
+                        // Vary typing speed
+                        let delay = 25;
+                        const char = line[j];
+                        if (char === ' ') delay = 15;
+                        else if ('.,;:!?(){}[]'.includes(char)) delay = 40;
+                        else delay = 25 + Math.random() * 20;
+                        
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    }
+                    
+                    // Remove cursor after line is complete
+                    if (tabName === 'notes') {
+                        let finalHighlight = line;
+                        if (line.startsWith('DEVELOPER NOTES') || line.startsWith('TODO:') || 
+                            line.startsWith('TECH STACK:') || line.startsWith('NOTES:')) {
+                            finalHighlight = '<span class="syntax-keyword font-bold">' + line + '</span>';
+                        } else if (line.includes('[✓]')) {
+                            finalHighlight = line.replace('[✓]', '<span class="syntax-green">[✓]</span>');
+                        } else if (line.includes('[ ]')) {
+                            finalHighlight = line.replace('[ ]', '<span class="syntax-comment">[ ]</span>');
+                        }
+                        codeSpan.innerHTML = finalHighlight;
+                    } else {
+                        codeSpan.innerHTML = highlightSyntax(line);
+                    }
+                }
+                
+                // Brief pause between lines
+                await new Promise(resolve => setTimeout(resolve, 50));
+            }
+
+            // Add final blinking cursor
+            const finalCursor = document.createElement('div');
+            finalCursor.innerHTML = '<span class="typing-cursor"></span>';
+            finalCursor.className = 'mt-2 ml-10';
+            container.appendChild(finalCursor);
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            if (currentTab === tabName) return;
+            
+            currentTab = tabName;
+            
+            // Update tab styles
+            document.querySelectorAll('.tab-button').forEach(tab => {
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.remove('tab-inactive');
+                    tab.classList.add('tab-active');
+                } else {
+                    tab.classList.remove('tab-active');
+                    tab.classList.add('tab-inactive');
+                }
+            });
+            
+            // Display new content
+            displayCode(tabName);
+        }
+
+        // Initialize tab buttons
+        function initTabs() {
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const tabName = button.dataset.tab;
+                    switchTab(tabName);
+                });
+            });
+        }
+
+        // Update status time
+        function updateStatusTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            document.getElementById('statusTime').textContent = `${hours} ${minutes}`;
+        }
+
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show success message
+                const toast = document.createElement('div');
+                toast.className = 'fixed bottom-4 right-4 bg-terminal-green text-terminal-darker px-4 py-2 rounded-lg font-mono text-sm shadow-lg z-50';
+                toast.textContent = '✓ Nomor berhasil disalin!';
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transition = 'opacity 0.3s';
+                    setTimeout(() => toast.remove(), 300);
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+
+        // Music Player
+        const tracks = [
+            {
+                title: "Radio head",
+                artist: "Radio Head",
+                url: "https://files.catbox.moe/zpnpvk.mp3"
+            },
+            {
+                title: "yungkai - blue",
+                artist: "yungkai",
+                url: "https://files.catbox.moe/1kyyy8.mp3"
+            },
+            {
+                title: "Terminal Dreams",
+                artist: "Electronic Beats",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+            },
+            {
+                title: "Night Coding",
+                artist: "Ambient Sounds",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+            },
+            {
+                title: "Debug Mode",
+                artist: "Synthwave",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+            }
+        ];
+
+        let currentTrackIndex = -1;
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+        const currentTrackTitle = document.getElementById('currentTrackTitle');
+        const currentTrackArtist = document.getElementById('currentTrackArtist');
+        const trackCount = document.getElementById('trackCount');
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function loadTrack(index) {
+            if (index < 0 || index >= tracks.length) return;
+            
+            currentTrackIndex = index;
+            const track = tracks[index];
+            
+            audioPlayer.src = track.url;
+            currentTrackTitle.textContent = track.title;
+            currentTrackArtist.textContent = track.artist;
+            trackCount.textContent = `${index + 1}/${tracks.length}`;
+            
+            // Update playlist UI
+            document.querySelectorAll('.playlist-item').forEach((item, i) => {
+                if (i === index) {
+                    item.classList.add('bg-terminal-card', 'border-terminal-cyan');
+                    item.classList.remove('border-terminal-border');
+                } else {
+                    item.classList.remove('bg-terminal-card', 'border-terminal-cyan');
+                    item.classList.add('border-terminal-border');
+                }
+            });
+        }
+
+        function playTrack() {
+            audioPlayer.play();
+            playIcon.classList.add('hidden');
+            pauseIcon.classList.remove('hidden');
+        }
+
+        function pauseTrack() {
+            audioPlayer.pause();
+            playIcon.classList.remove('hidden');
+            pauseIcon.classList.add('hidden');
+        }
+
+        function togglePlayPause() {
+            if (currentTrackIndex === -1) {
+                loadTrack(0);
+                playTrack();
+            } else if (audioPlayer.paused) {
+                playTrack();
+            } else {
+                pauseTrack();
+            }
+        }
+
+        function nextTrack() {
+            const nextIndex = (currentTrackIndex + 1) % tracks.length;
+            loadTrack(nextIndex);
+            playTrack();
+        }
+
+        function prevTrack() {
+            const prevIndex = currentTrackIndex > 0 ? currentTrackIndex - 1 : tracks.length - 1;
+            loadTrack(prevIndex);
+            playTrack();
+        }
+
+        function initMusicPlayer() {
+            // Create playlist items
+            const playlistEl = document.getElementById('playlist');
+            tracks.forEach((track, index) => {
+                const item = document.createElement('div');
+                item.className = 'playlist-item bg-terminal-bg border border-terminal-border rounded-lg p-3 cursor-pointer hover:bg-terminal-card transition-all';
+                item.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3 flex-1 min-w-0">
+                            <div class="w-8 h-8 bg-terminal-card rounded flex items-center justify-center flex-shrink-0">
+                                <span class="text-xs text-terminal-comment font-mono">${(index + 1).toString().padStart(2, '0')}</span>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="text-sm font-medium truncate">${track.title}</div>
+                                <div class="text-xs text-terminal-comment truncate">${track.artist}</div>
+                            </div>
+                        </div>
+                        <svg class="w-4 h-4 text-terminal-cyan flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"></path>
+                        </svg>
+                    </div>
+                `;
+                item.addEventListener('click', () => {
+                    loadTrack(index);
+                    playTrack();
+                });
+                playlistEl.appendChild(item);
+            });
+
+            // Event listeners
+            playPauseBtn.addEventListener('click', togglePlayPause);
+            nextBtn.addEventListener('click', nextTrack);
+            prevBtn.addEventListener('click', prevTrack);
+
+            // Progress bar click
+            progressBar.addEventListener('click', (e) => {
+                const rect = progressBar.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                audioPlayer.currentTime = percent * audioPlayer.duration;
+            });
+
+            // Audio events
+            audioPlayer.addEventListener('timeupdate', () => {
+                if (audioPlayer.duration) {
+                    const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                    progressFill.style.width = percent + '%';
+                    currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+                }
+            });
+
+            audioPlayer.addEventListener('loadedmetadata', () => {
+                durationEl.textContent = formatTime(audioPlayer.duration);
+            });
+
+            audioPlayer.addEventListener('ended', nextTrack);
+
+            // Set initial track count
+            trackCount.textContent = `0/${tracks.length}`;
+        }
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            initTabs();
+            displayCode('profile');
+            updateStatusTime();
+            initMusicPlayer();
+            setInterval(updateStatusTime, 60000); // Update every minute
+        });
+
+        // Smooth scroll for any future navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+
+
+</body></html>
